@@ -23,7 +23,7 @@
 
   <extensions defaultExtensionNs="com.intellij">
     <!-- Add your extensions here -->
-      <editorTabTitleProvider implementation="com.khande.idea.plugin.provider.TabNumberIndicatorProvider"/>
+      <editorTabTitleProvider implementation="com.khande.idea.plugin.tabnumberindicator.TabNumberIndicatorProvider"/>
   </extensions>
 
   <actions>
@@ -32,7 +32,7 @@
 
     <application-components>
         <component>
-            <implementation-class>com.khande.idea.plugin.provider.TabNumberIndicatorAppComponent</implementation-class>
+            <implementation-class>com.khande.idea.plugin.tabnumberindicator.TabNumberIndicatorAppComponent</implementation-class>
         </component>
     </application-components>
 </idea-plugin>

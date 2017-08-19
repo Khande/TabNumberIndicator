@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.khande.idea.plugin.provider;
+package com.khande.idea.plugin.tabnumberindicator.utils;
 
 import com.intellij.notification.*;
 

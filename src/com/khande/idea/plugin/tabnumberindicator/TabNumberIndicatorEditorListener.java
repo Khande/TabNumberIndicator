@@ -1,4 +1,4 @@
-package com.khande.idea.plugin.provider;
+package com.khande.idea.plugin.tabnumberindicator;
 
 import com.intellij.openapi.fileEditor.FileEditorManager;
 import com.intellij.openapi.fileEditor.FileEditorManagerEvent;
@@ -11,6 +11,7 @@ import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.ui.tabs.JBTabs;
 import com.intellij.ui.tabs.TabInfo;
 import com.intellij.ui.tabs.TabsListener;
+import com.khande.idea.plugin.tabnumberindicator.utils.Logger;
 import org.jetbrains.annotations.NotNull;
 
 /**

@@ -1,4 +1,4 @@
-package com.khande.idea.plugin.provider;
+package com.khande.idea.plugin.tabnumberindicator;
 
 import com.intellij.openapi.fileEditor.ex.FileEditorManagerEx;
 import com.intellij.openapi.fileEditor.impl.EditorTabTitleProvider;

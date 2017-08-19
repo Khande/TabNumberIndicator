@@ -1,10 +1,11 @@
-package com.khande.idea.plugin.provider;
+package com.khande.idea.plugin.tabnumberindicator;
 
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.components.ApplicationComponent;
 import com.intellij.openapi.fileEditor.FileEditorManagerListener;
 import com.intellij.util.messages.MessageBus;
 import com.intellij.util.messages.MessageBusConnection;
+import com.khande.idea.plugin.tabnumberindicator.utils.Logger;
 import org.jetbrains.annotations.NotNull;
 
 /**
