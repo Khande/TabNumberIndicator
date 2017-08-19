@@ -32,4 +32,9 @@
     <!-- Add your actions here -->
   </actions>
 
+    <application-components>
+        <component>
+            <implementation-class>com.khande.idea.plugin.provider.TabNumberIndicatorAppComponent</implementation-class>
+        </component>
+    </application-components>
 </idea-plugin>
