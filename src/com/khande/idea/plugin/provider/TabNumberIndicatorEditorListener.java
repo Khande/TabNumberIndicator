@@ -9,13 +9,14 @@ import com.intellij.openapi.fileEditor.impl.EditorWindow;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.ui.tabs.JBTabs;
+import com.intellij.ui.tabs.TabInfo;
+import com.intellij.ui.tabs.TabsListener;
 import org.jetbrains.annotations.NotNull;
 
 /**
  * Created by Khande on 17/8/19.
  */
 public class TabNumberIndicatorEditorListener implements FileEditorManagerListener {
-
 
     @Override
     public void fileOpened(@NotNull FileEditorManager source, @NotNull VirtualFile file) {
@@ -43,14 +44,41 @@ public class TabNumberIndicatorEditorListener implements FileEditorManagerListen
                 return;
             }
 
-            JBTabs tabs = tabbedPane.getTabs();
-            VirtualFile[] files = currentWindow.getFiles();
-            for (int i = 0; i < files.length; i++) {
-                tabs.getTabAt(i).setText((i + 1) + ": " + files[i].getPresentableName());
-            }
+            final VirtualFile[] files = currentWindow.getFiles();
+
+            final JBTabs tabs = tabbedPane.getTabs();
+            tabs.addListener(new TabsListener() {
+                @Override
+                public void selectionChanged(TabInfo oldSelection, TabInfo newSelection) {
+
+                }
+
+                @Override
+                public void beforeSelectionChanged(TabInfo oldSelection, TabInfo newSelection) {
+
+                }
+
+                @Override
+                public void tabRemoved(TabInfo tabToRemove) {
+
+                }
+
+                @Override
+                public void tabsMoved() {
+                    setRespondingTabNameForFile(files, tabs);
+                }
+            });
+
+            setRespondingTabNameForFile(files, tabs);
         }
 
     }
 
+
+    private void setRespondingTabNameForFile(@NotNull final VirtualFile[] files, @NotNull final JBTabs tabs) {
+        for (int i = 0; i < files.length; i++) {
+            tabs.getTabAt(i).setText((i + 1) + ": " + files[i].getPresentableName());
+        }
+    }
 
 }

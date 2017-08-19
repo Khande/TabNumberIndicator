@@ -5,13 +5,11 @@
   <vendor email="komisha@163.com" url="https://github.com/Khande/TabNumberIndicator">TabNumberIndicator</vendor>
 
   <description><![CDATA[
-      Enter short description for your plugin here.<br>
-      <em>most HTML tags may be used</em>
+      Display the tab number indicator before the opened file name int editor tabs.<br>
     ]]></description>
 
   <change-notes><![CDATA[
-      Add change notes here.<br>
-      <em>most HTML tags may be used</em>
+      Initial release.<br>
     ]]>
   </change-notes>
 

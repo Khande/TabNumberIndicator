@@ -1,6 +1,5 @@
 package com.khande.idea.plugin.provider;
 
-import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.fileEditor.ex.FileEditorManagerEx;
 import com.intellij.openapi.fileEditor.impl.EditorTabTitleProvider;
 import com.intellij.openapi.fileEditor.impl.EditorWindow;
@@ -12,8 +11,6 @@ import org.jetbrains.annotations.Nullable;
  * Created by Khande on 17/8/19.
  */
 public class TabNumberIndicatorProvider implements EditorTabTitleProvider {
-
-    private static final Logger LOGGER = Logger.getInstance(TabNumberIndicatorProvider.class);
 
     @Nullable
     @Override

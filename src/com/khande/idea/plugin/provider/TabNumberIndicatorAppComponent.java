@@ -15,7 +15,7 @@ public class TabNumberIndicatorAppComponent implements ApplicationComponent {
     private MessageBusConnection connection;
 
     public TabNumberIndicatorAppComponent() {
-        Logger.init(TabNumberIndicatorAppComponent.class.getSimpleName(), Logger.DEBUG);
+        Logger.init(TabNumberIndicatorAppComponent.class.getSimpleName(), Logger.WARN);
     }
 
     @Override
