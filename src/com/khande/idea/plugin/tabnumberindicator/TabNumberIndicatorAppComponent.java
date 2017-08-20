@@ -67,8 +67,10 @@ public class TabNumberIndicatorAppComponent implements ApplicationComponent {
         } else {
             keyCode = KeyEvent.VK_0 + (tabIndex + 1) % 10;
         }
-        activeKeymap.addShortcut(actionId, new KeyboardShortcut(KeyStroke.getKeyStroke(keyCode,
-                InputEvent.ALT_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK | InputEvent.CTRL_DOWN_MASK), null));
+
+        KeyboardShortcut keyboardShortcut = new KeyboardShortcut(KeyStroke.getKeyStroke(keyCode,
+                InputEvent.ALT_DOWN_MASK), null);
+        activeKeymap.addShortcut(actionId, keyboardShortcut);
 
         switchTabActionGroup.add(switchTabAction);
         actionManager.registerAction(actionId, switchTabAction);
