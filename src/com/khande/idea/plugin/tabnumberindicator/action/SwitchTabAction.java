@@ -10,6 +10,9 @@ import com.intellij.openapi.wm.ToolWindowManager;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
+
 /**
  * Created by Khande on 17/8/19.
  */

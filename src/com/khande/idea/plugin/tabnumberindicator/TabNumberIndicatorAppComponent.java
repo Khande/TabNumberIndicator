@@ -2,14 +2,21 @@ package com.khande.idea.plugin.tabnumberindicator;
 
 import com.intellij.openapi.actionSystem.ActionManager;
 import com.intellij.openapi.actionSystem.DefaultActionGroup;
+import com.intellij.openapi.actionSystem.KeyboardShortcut;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.components.ApplicationComponent;
 import com.intellij.openapi.fileEditor.FileEditorManagerListener;
+import com.intellij.openapi.keymap.Keymap;
+import com.intellij.openapi.keymap.ex.KeymapManagerEx;
 import com.intellij.util.messages.MessageBus;
 import com.intellij.util.messages.MessageBusConnection;
 import com.khande.idea.plugin.tabnumberindicator.action.SwitchTabAction;
 import com.khande.idea.plugin.tabnumberindicator.utils.Logger;
 import org.jetbrains.annotations.NotNull;
+
+import javax.swing.*;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 
 /**
  * Created by Khande on 17/8/19.
@@ -19,7 +26,7 @@ public class TabNumberIndicatorAppComponent implements ApplicationComponent {
     private MessageBusConnection connection;
 
     public TabNumberIndicatorAppComponent() {
-        Logger.init(TabNumberIndicatorAppComponent.class.getSimpleName(), Logger.WARN);
+        Logger.init(TabNumberIndicatorAppComponent.class.getSimpleName(), Logger.DEBUG);
     }
 
     @Override
@@ -50,12 +57,21 @@ public class TabNumberIndicatorAppComponent implements ApplicationComponent {
 
     private void addSwitchTabAction(@NotNull final ActionManager actionManager, @NotNull DefaultActionGroup switchTabActionGroup,
                                     final int tabIndex) {
-        String actionName = tabIndex == SwitchTabAction.TAB_INDEX_LAST ? "Switch To Last Tab" : "Switch To Tab #" + (tabIndex + 1);
-        SwitchTabAction switchTabAction = new SwitchTabAction(actionName, tabIndex);
-//        switchTabAction.registerCustomShortcutSet(KeyEvent.VK_0 + tabIndex,
-//                InputEvent.ALT_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK | InputEvent.META_DOWN_MASK, null);
+        String actionId = tabIndex == SwitchTabAction.TAB_INDEX_LAST ? "Switch To Last Tab" : "Switch To Tab #" + (tabIndex + 1);
+        SwitchTabAction switchTabAction = new SwitchTabAction(actionId, tabIndex);
+
+        Keymap activeKeymap = KeymapManagerEx.getInstanceEx().getActiveKeymap();
+        int keyCode;
+        if (tabIndex == SwitchTabAction.TAB_INDEX_LAST) {
+            keyCode = KeyEvent.VK_PERIOD;
+        } else {
+            keyCode = KeyEvent.VK_0 + (tabIndex + 1) % 10;
+        }
+        activeKeymap.addShortcut(actionId, new KeyboardShortcut(KeyStroke.getKeyStroke(keyCode,
+                InputEvent.ALT_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK | InputEvent.CTRL_DOWN_MASK), null));
+
         switchTabActionGroup.add(switchTabAction);
-        actionManager.registerAction(actionName, switchTabAction);
+        actionManager.registerAction(actionId, switchTabAction);
     }
 
 
