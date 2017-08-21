@@ -13,70 +13,77 @@ import com.intellij.ui.tabs.TabInfo;
 import com.intellij.ui.tabs.TabsListener;
 import com.khande.idea.plugin.tabnumberindicator.utils.Logger;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Created by Khande on 17/8/19.
  */
 public class TabNumberIndicatorEditorListener implements FileEditorManagerListener {
 
+    private EditorWindow mEditorWindow;
+    private JBTabs mOpenedFileTabs;
+
     @Override
     public void fileOpened(@NotNull FileEditorManager source, @NotNull VirtualFile file) {
         Logger.info("file opened");
-        refreshTabNumberIndicator(source.getProject());
+
+        if (mEditorWindow == null) {
+            Project project = source.getProject();
+            FileEditorManagerEx fileEditorManagerEx = FileEditorManagerEx.getInstanceEx(project);
+            mEditorWindow = fileEditorManagerEx.getCurrentWindow();
+        }
+
+        if (mEditorWindow != null && mOpenedFileTabs == null) {
+            EditorTabbedContainer tabbedPane = mEditorWindow.getTabbedPane();
+            if (tabbedPane != null) {
+                mOpenedFileTabs = tabbedPane.getTabs();
+                mOpenedFileTabs.addListener(new TabsListener() {
+                    @Override
+                    public void selectionChanged(TabInfo oldSelection, TabInfo newSelection) {
+
+                    }
+
+                    @Override
+                    public void beforeSelectionChanged(TabInfo oldSelection, TabInfo newSelection) {
+
+                    }
+
+                    @Override
+                    public void tabRemoved(TabInfo tabToRemove) {
+
+                    }
+
+                    @Override
+                    public void tabsMoved() {
+                        Logger.debug("tabsMoved");
+                        refreshTabNumberIndicator(mEditorWindow, mOpenedFileTabs);
+                    }
+                });
+            }
+        }
+
+        refreshTabNumberIndicator(mEditorWindow, mOpenedFileTabs);
     }
 
     @Override
     public void fileClosed(@NotNull FileEditorManager source, @NotNull VirtualFile file) {
         Logger.info("file closed");
-        refreshTabNumberIndicator(source.getProject());
+        refreshTabNumberIndicator(mEditorWindow, mOpenedFileTabs);
     }
+
 
     @Override
     public void selectionChanged(@NotNull FileEditorManagerEvent event) {
-        Logger.info("selection changed");
+        Logger.info("file selection changed.");
     }
+    
 
-    private void refreshTabNumberIndicator(@NotNull final Project project) {
-        FileEditorManagerEx fileEditorManagerEx = FileEditorManagerEx.getInstanceEx(project);
-        EditorWindow currentWindow = fileEditorManagerEx.getCurrentWindow();
-        if (currentWindow != null) {
-            EditorTabbedContainer tabbedPane = currentWindow.getTabbedPane();
-            if (tabbedPane == null) {
-                return;
-            }
-
-            final VirtualFile[] files = currentWindow.getFiles();
-
-            final JBTabs tabs = tabbedPane.getTabs();
-            tabs.addListener(new TabsListener() {
-                @Override
-                public void selectionChanged(TabInfo oldSelection, TabInfo newSelection) {
-
-                }
-
-                @Override
-                public void beforeSelectionChanged(TabInfo oldSelection, TabInfo newSelection) {
-
-                }
-
-                @Override
-                public void tabRemoved(TabInfo tabToRemove) {
-
-                }
-
-                @Override
-                public void tabsMoved() {
-                    setRespondingTabNameForFile(files, tabs);
-                }
-            });
-
-            setRespondingTabNameForFile(files, tabs);
+    private void refreshTabNumberIndicator(@Nullable final EditorWindow editorWindow, @Nullable final JBTabs tabs) {
+        if (editorWindow == null || tabs == null) {
+            return;
         }
-
-    }
-
-
-    private void setRespondingTabNameForFile(@NotNull final VirtualFile[] files, @NotNull final JBTabs tabs) {
+        VirtualFile[] files = editorWindow.getFiles();
+        Logger.debug("opened files count: " + files.length);
         for (int i = 0; i < files.length; i++) {
             tabs.getTabAt(i).setText((i + 1) + ": " + files[i].getPresentableName());
         }
