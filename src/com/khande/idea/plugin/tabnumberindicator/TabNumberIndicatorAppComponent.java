@@ -4,7 +4,7 @@ import com.intellij.openapi.actionSystem.ActionManager;
 import com.intellij.openapi.actionSystem.DefaultActionGroup;
 import com.intellij.openapi.actionSystem.KeyboardShortcut;
 import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.components.ApplicationComponent;
+import com.intellij.openapi.components.ProjectComponent;
 import com.intellij.openapi.fileEditor.FileEditorManagerListener;
 import com.intellij.openapi.keymap.Keymap;
 import com.intellij.openapi.keymap.ex.KeymapManagerEx;
@@ -21,7 +21,7 @@ import java.awt.event.KeyEvent;
 /**
  * Created by Khande on 17/8/19.
  */
-public class TabNumberIndicatorAppComponent implements ApplicationComponent {
+public class TabNumberIndicatorAppComponent implements ProjectComponent {
 
     private MessageBusConnection connection;
 
