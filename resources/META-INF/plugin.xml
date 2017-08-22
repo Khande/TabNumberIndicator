@@ -32,7 +32,13 @@
 
     <project-components>
         <component>
-            <implementation-class>com.khande.idea.plugin.tabnumberindicator.TabNumberIndicatorAppComponent</implementation-class>
+            <implementation-class>com.khande.idea.plugin.tabnumberindicator.TabNumberIndicatorProjectComponent</implementation-class>
         </component>
     </project-components>
+  <application-components>
+    <component>
+      <implementation-class>com.khande.idea.plugin.tabnumberindicator.TabNumberIndicatorAppComponent
+      </implementation-class>
+    </component>
+  </application-components>
 </idea-plugin>

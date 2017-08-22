@@ -3,13 +3,9 @@ package com.khande.idea.plugin.tabnumberindicator;
 import com.intellij.openapi.actionSystem.ActionManager;
 import com.intellij.openapi.actionSystem.DefaultActionGroup;
 import com.intellij.openapi.actionSystem.KeyboardShortcut;
-import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.components.ProjectComponent;
-import com.intellij.openapi.fileEditor.FileEditorManagerListener;
+import com.intellij.openapi.components.ApplicationComponent;
 import com.intellij.openapi.keymap.Keymap;
 import com.intellij.openapi.keymap.ex.KeymapManagerEx;
-import com.intellij.util.messages.MessageBus;
-import com.intellij.util.messages.MessageBusConnection;
 import com.khande.idea.plugin.tabnumberindicator.action.SwitchTabAction;
 import com.khande.idea.plugin.tabnumberindicator.utils.Logger;
 import org.jetbrains.annotations.NotNull;
@@ -19,11 +15,9 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
 /**
- * Created by Khande on 17/8/19.
+ * Created by Khande on 17/8/22.
  */
-public class TabNumberIndicatorAppComponent implements ProjectComponent {
-
-    private MessageBusConnection connection;
+public class TabNumberIndicatorAppComponent implements ApplicationComponent {
 
     public TabNumberIndicatorAppComponent() {
         Logger.init(TabNumberIndicatorAppComponent.class.getSimpleName(), Logger.DEBUG);
@@ -31,14 +25,8 @@ public class TabNumberIndicatorAppComponent implements ProjectComponent {
 
     @Override
     public void initComponent() {
-        Logger.debug("Init TabNumberIndicatorAppComponent");
-        MessageBus messageBus = ApplicationManager.getApplication().getMessageBus();
-        connection = messageBus.connect();
-        connection.subscribe(FileEditorManagerListener.FILE_EDITOR_MANAGER, new TabNumberIndicatorEditorListener());
-
         addSwitchTabActionsGroup();
     }
-
 
     private void addSwitchTabActionsGroup() {
         ActionManager actionManager = ActionManager.getInstance();
@@ -79,8 +67,7 @@ public class TabNumberIndicatorAppComponent implements ProjectComponent {
 
     @Override
     public void disposeComponent() {
-        Logger.debug("Disposing component");
-        connection.disconnect();
+
     }
 
     @Override
