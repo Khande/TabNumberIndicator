@@ -36,7 +36,7 @@ import java.awt.event.KeyEvent;
 public class TabNumberIndicatorAppComponent implements ApplicationComponent {
 
     public TabNumberIndicatorAppComponent() {
-        Logger.init(TabNumberIndicatorAppComponent.class.getSimpleName(), Logger.DEBUG);
+        Logger.init(TabNumberIndicatorAppComponent.class.getSimpleName(), Logger.ERROR);
     }
 
     @Override
