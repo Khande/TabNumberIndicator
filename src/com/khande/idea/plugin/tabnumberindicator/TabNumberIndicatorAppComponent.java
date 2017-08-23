@@ -38,8 +38,8 @@ public class TabNumberIndicatorAppComponent implements ApplicationComponent {
             addSwitchTabAction(actionManager, switchTabActionsGroup, i);
         }
 
-        DefaultActionGroup editorTabsGroup = (DefaultActionGroup) actionManager.getAction("EditorTabsGroup");
-        editorTabsGroup.add(switchTabActionsGroup);
+        DefaultActionGroup toolsMenu = (DefaultActionGroup) actionManager.getAction("ToolsMenu");
+        toolsMenu.add(switchTabActionsGroup);
     }
 
 
