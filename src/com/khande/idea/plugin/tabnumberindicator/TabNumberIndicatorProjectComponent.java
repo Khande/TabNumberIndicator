@@ -40,6 +40,15 @@ public class TabNumberIndicatorProjectComponent implements ProjectComponent {
         connection.subscribe(FileEditorManagerListener.FILE_EDITOR_MANAGER, new TabNumberIndicatorEditorListener());
     }
 
+    @Override
+    public void projectOpened() {
+
+    }
+
+    @Override
+    public void projectClosed() {
+
+    }
 
     @Override
     public void disposeComponent() {
