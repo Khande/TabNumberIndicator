@@ -19,6 +19,7 @@ package com.khande.idea.plugin.tabnumberindicator;
 import com.intellij.openapi.actionSystem.ActionManager;
 import com.intellij.openapi.actionSystem.DefaultActionGroup;
 import com.intellij.openapi.actionSystem.KeyboardShortcut;
+import com.intellij.openapi.actionSystem.Shortcut;
 import com.intellij.openapi.components.ApplicationComponent;
 import com.intellij.openapi.keymap.Keymap;
 import com.intellij.openapi.keymap.ex.KeymapManagerEx;
@@ -72,9 +73,12 @@ public class TabNumberIndicatorAppComponent implements ApplicationComponent {
             keyCode = KeyEvent.VK_0 + (tabIndex + 1) % 10;
         }
 
-        KeyboardShortcut keyboardShortcut = new KeyboardShortcut(KeyStroke.getKeyStroke(keyCode,
-                InputEvent.ALT_DOWN_MASK), null);
-        activeKeymap.addShortcut(actionId, keyboardShortcut);
+        Shortcut[] existingShortcuts = activeKeymap.getShortcuts(actionId);
+        if (existingShortcuts == null || existingShortcuts.length == 0) {
+            KeyboardShortcut keyboardShortcut = new KeyboardShortcut(KeyStroke.getKeyStroke(keyCode,
+                    InputEvent.ALT_DOWN_MASK), null);
+            activeKeymap.addShortcut(actionId, keyboardShortcut);
+        }
 
         switchTabActionGroup.add(switchTabAction);
         actionManager.registerAction(actionId, switchTabAction);
